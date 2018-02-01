@@ -1,6 +1,25 @@
 import React, { Component } from 'react';
 import BookshelfComponent from './BookshelfComponent'
+import * as BooksAPI from './BooksAPI';
+
 class ListBooksComponent extends Component {
+
+    state = {
+        wantToRead: [],
+        read: [],
+        reading: []
+    }
+    
+    componentDidMount() {
+        BooksAPI.getAll().then(books => {
+            this.setState({
+                wantToRead:  books.filter(book => (book.shelf === "wantToRead")),
+                read: books.filter(book => (book.shelf === "read")),
+                reading:  books.filter(book => (book.shelf === "currentlyReading"))
+            });
+        });
+    }
+
     render() {
         return (
             <div className="list-books">
@@ -11,16 +30,19 @@ class ListBooksComponent extends Component {
                     <div>
                         <BookshelfComponent
                             title="Want to Read"
+                            books={this.state.wantToRead}
                         />
                     </div>
                     <div>
                         <BookshelfComponent
                             title="Read"
+                            books={this.state.read}
                         />
                     </div>
                     <div>
                         <BookshelfComponent
                             title="Currently Reading"
+                            books={this.state.reading}
                         />
                     </div>
                 </div>
