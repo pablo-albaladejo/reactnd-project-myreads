@@ -20,6 +20,13 @@ class ListBooksComponent extends Component {
         });
     }
 
+    changeShelf(book, shelf){
+       BooksAPI.update(book, shelf).then(val => {
+           console.log(val);
+           //setState
+       });
+    }
+
     render() {
         return (
             <div className="list-books">
@@ -31,18 +38,21 @@ class ListBooksComponent extends Component {
                         <BookshelfComponent
                             title="Want to Read"
                             books={this.state.wantToRead}
+                            changeShelf={this.changeShelf}
                         />
                     </div>
                     <div>
                         <BookshelfComponent
                             title="Read"
                             books={this.state.read}
+                            changeShelf={this.changeShelf}
                         />
                     </div>
                     <div>
                         <BookshelfComponent
                             title="Currently Reading"
                             books={this.state.reading}
+                            changeShelf={this.changeShelf}
                         />
                     </div>
                 </div>

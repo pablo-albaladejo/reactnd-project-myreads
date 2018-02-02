@@ -3,7 +3,7 @@ import BookComponent from './BookComponent';
 
 class BookshelfComponent extends Component {
     render() {
-        const { books } = this.props
+        const { books, changeShelf } = this.props;
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{this.props.title}</h2>
@@ -12,9 +12,8 @@ class BookshelfComponent extends Component {
                         {books.map((book) => (
                             <li key={book.id}>
                                 <BookComponent
-                                    img={book.imageLinks.smallThumbnail}
-                                    title={book.title}
-                                    authors={book.authors}
+                                    book={book}
+                                    changeShelf={changeShelf}
                                 />
                             </li>
                         ))}
@@ -23,6 +22,5 @@ class BookshelfComponent extends Component {
             </div>
         );
     }
-
 }
 export default BookshelfComponent
