@@ -69,8 +69,6 @@ class BooksApp extends React.Component {
         <Loadable
           animate
           active={this.state.isLoading}
-          spinner
-          text='Loading...'
         >
           <Route exact path='/' render={() => (
             <ListBooksComponent
@@ -82,8 +80,11 @@ class BooksApp extends React.Component {
           )} />
 
           <Route exact path='/search' render={() => (
-            <SearchBooksComponent />
+            <SearchBooksComponent 
+              changeShelf={this.changeShelf}
+            />
           )} />
+
         </Loadable>
 
       </div>
