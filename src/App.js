@@ -1,4 +1,5 @@
 import React from 'react';
+import Loadable from 'react-loading-overlay';
 import './App.css';
 import * as BooksAPI from './BooksAPI';
 import { Route } from 'react-router-dom'
@@ -23,22 +24,39 @@ class BooksApp extends React.Component {
   ];
 
   state = {
-    books: []
+    books: [],
+    isLoading: false
   }
 
   componentDidMount() {
+    this.setState({
+      isLoading: true
+    });
+      
     BooksAPI.getAll().then(books => {
+      this.setState({
+        isLoading: false
+      });
+
       this.setState({
         books
       });
     });
   }
 
-  changeShelf = ( book, shelf ) => {
+  changeShelf = (book, shelf) => {
+    this.setState({
+      isLoading: true
+    });
+
     BooksAPI.update(book, shelf).then(response => {
+      this.setState({
+        isLoading: false
+      });
+      
       book.shelf = shelf;
       this.setState(state => ({
-        books: state.books.filter(item => item.id !== book.id).concat([ book ])
+        books: state.books.filter(item => item.id !== book.id).concat([book])
       }));
     });
   }
@@ -48,18 +66,25 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
 
-        <Route exact path='/' render={() => (
-          <ListBooksComponent
-            title="MyReads"
-            shelves={this.shelves}
-            books={this.state.books}
-            changeShelf={this.changeShelf}
-          />
-        )} />
+        <Loadable
+          animate
+          active={this.state.isLoading}
+          spinner
+          text='Loading...'
+        >
+          <Route exact path='/' render={() => (
+            <ListBooksComponent
+              title="MyReads"
+              shelves={this.shelves}
+              books={this.state.books}
+              changeShelf={this.changeShelf}
+            />
+          )} />
 
-        <Route exact path='/search' render={() => (
-          <SearchBooksComponent />
-        )} />
+          <Route exact path='/search' render={() => (
+            <SearchBooksComponent />
+          )} />
+        </Loadable>
 
       </div>
     )
