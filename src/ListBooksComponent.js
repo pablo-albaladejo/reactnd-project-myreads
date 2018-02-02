@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import BookshelfComponent from './BookshelfComponent'
+import BookshelfComponent from './BookshelfComponent';
+import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 
 class ListBooksComponent extends Component {
@@ -9,22 +10,22 @@ class ListBooksComponent extends Component {
         read: [],
         reading: []
     }
-    
+
     componentDidMount() {
         BooksAPI.getAll().then(books => {
             this.setState({
-                wantToRead:  books.filter(book => (book.shelf === "wantToRead")),
+                wantToRead: books.filter(book => (book.shelf === "wantToRead")),
                 read: books.filter(book => (book.shelf === "read")),
-                reading:  books.filter(book => (book.shelf === "currentlyReading"))
+                reading: books.filter(book => (book.shelf === "currentlyReading"))
             });
         });
     }
 
-    changeShelf(book, shelf){
-       BooksAPI.update(book, shelf).then(val => {
-           console.log(val);
-           //setState
-       });
+    changeShelf(book, shelf) {
+        BooksAPI.update(book, shelf).then(val => {
+            console.log(val);
+            //setState
+        });
     }
 
     render() {
@@ -56,8 +57,12 @@ class ListBooksComponent extends Component {
                         />
                     </div>
                 </div>
+
                 <div className="open-search">
-                    <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+                    <Link
+                        to='/search'
+                        className='open-search'
+                    >Add a book</Link>
                 </div>
             </div >
         );
