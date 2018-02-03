@@ -25,3 +25,4 @@ The source of the books database is obtained form Udacity's server:
 This projects uses:
 
 * https://github.com/derrickpelletier/react-loading-overlay
+* https://github.com/nkbt/react-debounce-input
