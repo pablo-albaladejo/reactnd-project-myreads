@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './BooksAPI';
 import { Link } from 'react-router-dom';
+import { DebounceInput } from 'react-debounce-input';
 import BookComponent from './BookComponent';
 
 class SearchBooksComponent extends Component {
 
-    query='';
+    query = '';
 
     state = {
         books: [],
     }
 
-    handleChange = event => {
+    handleChange = event => {        
         this.query = event.target.value.trim();
 
         if (this.query) {
@@ -44,9 +45,10 @@ class SearchBooksComponent extends Component {
                 <div className="search-books-bar">
                     <Link className='close-search' to='/'>Close</Link>
                     <div className="search-books-input-wrapper">
-
-                        <input type="text" placeholder="Search by title or author" onKeyUp={this.handleChange}/>
-
+                        <DebounceInput
+                            debounceTimeout={300}
+                            placeholder="Search by title or author" 
+                            onChange={this.handleChange} />
                     </div>
                 </div>
                 <div className="search-books-results">
