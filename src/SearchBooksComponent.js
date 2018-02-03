@@ -22,7 +22,12 @@ class SearchBooksComponent extends Component {
                     });
                 } else {
                     this.setState({
-                        books: response
+                        books: response.map(item => {
+                            //https://stackoverflow.com/a/38500417/3395884
+                            //check if the current book is already in a self
+                            let book = this.props.books.find(book => book.id === item.id);
+                            return book || item;
+                        })
                     });
                 }
             });
