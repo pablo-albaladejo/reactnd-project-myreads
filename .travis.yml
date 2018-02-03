@@ -5,9 +5,9 @@ branches:
    only:
       - master
 before_script:
-   - npm install --save-dev gh-pages
+   - npm install
 script:
-   - npm run deploy
+   - npm run build
 deploy:
   provider: pages
   skip_cleanup: true
