@@ -9,7 +9,7 @@ class BookComponent extends Component {
         return (
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("' + (book.imageLinks ? book.imageLinks.smallThumbnail : this.noCoverUrl) + '")' }}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("' + (book.imageLinks ? book.imageLinks.smallThumbnail.replace('http','https') : this.noCoverUrl) + '")' }}></div>
                     <div className="book-shelf-changer">
                         <select defaultValue={book.shelf ? book.shelf : "none" } onChange={event => changeShelf(book, event.target.value)}>
                             <option value="move" disabled>Move to...</option>
