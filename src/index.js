@@ -6,7 +6,8 @@ import './index.css';
 
 ReactDOM.render(
     <BrowserRouter
-        basename="/reactnd-project-myreads"
+        //https://github.com/facebook/create-react-app/issues/2959
+        basename={process.env.PUBLIC_URL}
     >
         <App />
     </BrowserRouter>,
